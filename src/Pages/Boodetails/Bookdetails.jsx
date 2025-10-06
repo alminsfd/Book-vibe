@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import { addDataTolocal } from '../../Utilities/Localstorage';
 
 const Bookdetails = () => {
 
@@ -7,19 +8,22 @@ const Bookdetails = () => {
     const Bookid = parseInt(bookid)
     const data = useLoaderData()
     const bookfind = data.find(book => book.bookId === Bookid)
-    const { image, bookName, author, review, yearOfPublishing, publisher, tags, category, rating, totalPages } = bookfind
+    const {bookId, image, bookName, author, review, yearOfPublishing, publisher, tags, category, rating, totalPages } = bookfind
+    const handleMark=(id)=>{
+      addDataTolocal(id)
+    }
 
     return (
 
-        <div className='flex w-full mt-10 gap-10' >
-            <div className='bg-[#1313130d] w-1/2 p-13 rounded-xl shadow-lg border border-[#ddd] ' ><img className='h-[500px] mx-auto' src={image} alt="" /></div>
-            <div className='w-1/2' >
+        <div className='flex w-full md:flex-row flex-col mt-10 gap-10' >
+            <div className='bg-[#1313130d] md:w-1/2 w-auto p-13 rounded-xl shadow-lg border border-[#ddd] ' ><img className='h-[500px] mx-auto' src={image} alt="" /></div>
+            <div className='md:w-1/2 w-[330px] pl-5' >
                 <h2 className='font-bold text-4xl mb-3' >{bookName}</h2>
                 <p className='font-medium text-xl text-[#131313cc] mb-3' >By : {author}</p>
                 <div className='border border-t border-[#ddd] mb-3' ></div>
                 <p className='font-medium text-xl text-[#131313cc] mb-3' >{category}</p>
                 <div className='border border-t border-[#ddd] mb-3' ></div>
-                <p className='text-base text-gray-600 mb-3' ><span className='font-black text-base text-black' >Review :</span> {review}</p>
+                <p className='text-base text-gray-600 mb-3' ><span className='font-black text-base text-black text-justify ' >Review :</span> {review}</p>
                 <div className='flex items-center mb-3' >
                     <span className='font-black text-base text-black  mx-5' >Tag</span>
                     {
@@ -38,9 +42,9 @@ const Bookdetails = () => {
                     <p className='text-gray-700 font-bold' >Rating</p>
                     <p className='text-black font-medium' >{rating}</p>
                 </div>
-                <div className='mt-5' >
-                    <button className='btn mx-3 text-black' >Read</button>
-                    <button className='btn mx-3 bg-[#50B1C9] text-white px-6' >Wishlist</button>
+                <div className='mt-5 flex' >
+                    <button  onClick={()=>handleMark(bookId)} className='btn mx-3 text-black' >Mark as Read</button>
+                    <button className='btn mx-3 bg-[#50B1C9] text-white px-6' > Add to Wishlist</button>
                 </div>
             </div>
         </div>
