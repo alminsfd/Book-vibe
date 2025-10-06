@@ -1,12 +1,14 @@
 import React from 'react';
 import Banner from '../../Component/Banner/Banner';
-import Book from '../Book/Book';
+import Books from '../Book/Books';
+import { useLoaderData } from 'react-router';
 
 const Home = () => {
+    const books=useLoaderData()
     return (
         <>
         <Banner></Banner>
-        <Book></Book>
+        <Books  books={ books} ></Books>
         </>
     );
 };
