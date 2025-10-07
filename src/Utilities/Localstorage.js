@@ -18,5 +18,4 @@ const addDataTolocal=(id)=>{
         localStorage.setItem('addlist',JSON.stringify(getdata))
     }
 }
-
-export{addDataTolocal}
+export{addDataTolocal,getaddcard}
