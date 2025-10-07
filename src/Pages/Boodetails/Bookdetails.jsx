@@ -1,4 +1,6 @@
 import React from 'react';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import { useLoaderData, useParams } from 'react-router';
 import { addDataTolocal } from '../../Utilities/Localstorage';
 
@@ -8,9 +10,17 @@ const Bookdetails = () => {
     const Bookid = parseInt(bookid)
     const data = useLoaderData()
     const bookfind = data.find(book => book.bookId === Bookid)
-    const {bookId, image, bookName, author, review, yearOfPublishing, publisher, tags, category, rating, totalPages } = bookfind
-    const handleMark=(id)=>{
-      addDataTolocal(id)
+    const { bookId, image, bookName, author, review, yearOfPublishing, publisher, tags, category, rating, totalPages } = bookfind
+    const handleMark = (id) => {
+        const MySwal = withReactContent(Swal)
+
+        MySwal.fire({
+            title: " Done add to read list",
+            icon: "success",
+            draggable: true
+        })
+        addDataTolocal(id)
+
     }
 
     return (
@@ -27,9 +37,9 @@ const Bookdetails = () => {
                 <div className='flex items-center mb-3' >
                     <span className='font-black text-base text-black  mx-5' >Tag</span>
                     {
-                        tags.map((tag,index)=><p  key={tag+index} className='text-[#23BE0A] text-base  font-medium  mx-5' >{tag}</p>)
+                        tags.map((tag, index) => <p key={tag + index} className='text-[#23BE0A] text-base  font-medium  mx-5' >{tag}</p>)
                     }
-                    
+
                 </div>
                 <div className='border border-t border-[#ddd] mb-3' ></div>
                 <div className='grid grid-cols-2 gap-2 text-justify mb-3' >
@@ -43,7 +53,7 @@ const Bookdetails = () => {
                     <p className='text-black font-medium' >{rating}</p>
                 </div>
                 <div className='mt-5 flex' >
-                    <button  onClick={()=>handleMark(bookId)} className='btn mx-3 text-black' >Mark as Read</button>
+                    <button onClick={() => handleMark(bookId)} className='btn mx-3 text-black' >Mark as Read</button>
                     <button className='btn mx-3 bg-[#50B1C9] text-white px-6' > Add to Wishlist</button>
                 </div>
             </div>
